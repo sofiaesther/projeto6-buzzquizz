@@ -1,25 +1,88 @@
 body{
     background-color: #fafafa;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 body h1{
     font-size: 16px;
     color: black;
-    font-weight: ;
+    font-weight: bold;
 }
 body h2{
-
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+body h3{
+    font-size: 16px;
+    color: white;
+    font-weight: lighter;
 }
 
-.headersite {
+.HeaderSite {
     background-color: #ec362d;
-    color: white;
     box-shadow: 0px 1px 5px gray;
     width: 100%;
     height: 69px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top:0;
+    left:0;
+
+}
+
+.HeaderSite h1{
+    color: white;
     font-size: 40px;
     font-weight: bolder;
 }
+
+.ContentCreate{
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 100px auto auto auto;
+}
+
+.ContentCreate h1{
+    text-align: center;
+}
+.BoxItensCreate {
+    margin-top:30px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+    box-shadow: 0px 1px 4px lightgray;
+}
+.ButtonContinue{
+    background-color: #ec362d;
+    width: 367px;
+    border-radius: 10px;
+    padding: 15px  0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+input{
+    width: 90%;
+    border:1px solid #bababa;
+    border-radius: 10px;
+    padding:10px;
+    margin: 5px auto;
+
+}
+::placeholder {
+    font-size: 16px;
+    color: #bababa;
+    font-weight:100;
+    font-style: italic;
+  }
