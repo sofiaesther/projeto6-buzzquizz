@@ -14,10 +14,22 @@
         <h1>BuzzQuizz</h1>
     </div>
     <div class="PageContent">
+        <div class="ContentCreate">
+            <h1>Crie suas perguntas</h1>
+            <div class="BoxItensCreate">
+                <div class="LabelInfoCreate"></div>
+                <input class="TitleCreate" onchange="ValidateInput(this)" type="text" placeholder="Título do seu quizz">
+
+            </div>
+            <div class="ButtonContinue" onclick="GoQuestionCreate()">
+                <h3>Prosseguir pra criar perguntas</h3>
+            </div>
+        </div>
     </div>
     <div class="ButtonContinue" onclick="GoCreateQuizz(this)">
         clique
     </div>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
