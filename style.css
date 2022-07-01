@@ -20,6 +20,9 @@ body h3{
     color: white;
     font-weight: lighter;
 }
+body ion-icon{
+    font-size: 30px;
+}
 
 .HeaderSite {
     background-color: #ec362d;
@@ -53,13 +56,16 @@ body h3{
     text-align: center;
 }
 .BoxItensCreate {
+    width: 100%;
     margin-top:30px;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 20px 0;
+    padding: 15px;
     box-shadow: 0px 1px 4px lightgray;
+
 }
 .ButtonContinue{
     background-color: #ec362d;
@@ -77,8 +83,10 @@ input{
     border:1px solid #bababa;
     border-radius: 10px;
     padding:10px;
-    margin: 5px auto;
-
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 ::placeholder {
     font-size: 16px;
@@ -86,3 +94,36 @@ input{
     font-weight:100;
     font-style: italic;
   }
+
+.LabelInfoCreate{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto 5px auto;
+    align-items: center;
+}
+.IncorrectURLCreate{
+    margin-bottom:15px;
+}
+
+.CorrectURLCreate{
+    margin-bottom:15px;
+}
+
+.QuestionColorCreate{
+    margin-bottom:15px;
+}
+.QuestionCreating{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.QuestionCreating ion-icon{
+    opacity:0%;
+}
+.QuestionNOTCreating{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+}
