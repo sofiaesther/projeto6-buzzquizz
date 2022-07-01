@@ -27,7 +27,7 @@ function GoQuestionCreate(){
     UrlCreateItem =QuestionItemsValue[1]
     QuestionCountCreateItem = QuestionItemsValue[2]
     LevelCountCreateItem = QuestionItemsValue[3]
-    
+
     let DomCreateQuizz =`
     <div class="ContentCreate">
     <h1>Comece pelo começo</h1>
@@ -37,6 +37,7 @@ function GoQuestionCreate(){
         <input class="QuestionCountCreate" onchange="ValidateInput(this)" type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz">
         <input class="LevelCountCreate" onchange="ValidateInput(this)" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz">
     </div>
+    
     <div class="ButtonContinue" onclick="GoQuestionCreate()">
         <h3>Prosseguir pra criar perguntas</h3>
     </div>
