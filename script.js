@@ -155,7 +155,7 @@ function ValidateInput(element) {
 
         
         case "color":
-            if (elementContent[0] !== '#'|| elementContent.length!=7)){
+            if (elementContent[0] !== '#'|| elementContent.length!=7){
                 alert(`Por favor insira um valor acima de ${element.min}`);
             }
             break;
