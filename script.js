@@ -2,15 +2,15 @@ function GoCreateQuizz(){
     let DomCreateQuizz =`
     <div class="ContentCreate">
     <h1>Comece pelo começo</h1>
+    <form> 
     <div class="BoxItensCreate">
-        <input class="TitleCreate" onchange="ValidateInput(this)" type="text" placeholder="Título do seu quizz">
-        <input class="UrlCreate" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem do seu quizz">
-        <input class="QuestionCountCreate" onchange="ValidateInput(this)" type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz">
-        <input class="LevelCountCreate" onchange="ValidateInput(this)" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz">
+        <input class="TitleCreate" onchange="ValidateInput(this)" type="text" minlength="20" maxlength="65" placeholder="Título do seu quizz" required>
+        <input class="UrlCreate" pattern="https?://.+" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem do seu quizz"required>
+        <input class="QuestionCountCreate" onchange="ValidateInput(this)" type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz" required>
+        <input class="LevelCountCreate" onchange="ValidateInput(this)" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz" required>
     </div>
-    <div class="ButtonContinue" onclick="GoQuestionCreate()">
-        <h3>Prosseguir pra criar perguntas</h3>
-    </div>
+    <input type="submit" class="ButtonContinue" onclick="GoQuestionCreate()" value="Prosseguir pra criar perguntas" >
+    </form> 
 </div>`;
     document.querySelector(".PageContent").innerHTML = DomCreateQuizz;
 }
@@ -21,6 +21,8 @@ let QuestionCountCreateItem;
 let LevelCountCreateItem;
 
 function GoQuestionCreate(){
+
+    if (ValidateInput()){
 
     TitleCreateItem = document.querySelector('input.TitleCreate').value
     UrlCreateItem = document.querySelector('input.UrlCreate').value
@@ -42,57 +44,118 @@ function GoQuestionCreate(){
     let HearderQuestionCreate = `       
     <div class="ContentCreate">
         <h1>Crie suas perguntas</h1>
-            <ul class="BoxItensCreate"> 
-            </ul>
-    </div>
-    <div class="ButtonContinue" onclick="GoLevelCreate()">
-        <h3>Prosseguir pra criar os níveis</h3>
+            <form> 
+                <div class="BoxItensCreate">
+                </div>
+            </form>
+
     </div>`;
     document.querySelector(".PageContent").innerHTML = HearderQuestionCreate
 
 
     for (let i=1; i<=QuestionCountCreateItem; i++){
         let DomCreateQuestion =
-        `<li>
+        `<fieldset>
             <div class="LabelInfoCreate">
                     <h1>Pergunta ${i}</h1>
                     <ion-icon name="create-outline"  onclick="OpenQuestionForm(this.parentElement)"></ion-icon>
             </div>
             <div class="QuestionNOTCreating">
-                <input class="QuestionTitleCreate" onchange="ValidateInput(this)" type="text" placeholder="Texto da pergunta">
-                <input class="QuestionColorCreate" onchange="ValidateInput(this)" type="color" placeholder="Cor de fundo da pergunta">
+                <input class="QuestionTitleCreate" type="text" minlength="20" placeholder="Texto da pergunta" required>
+                <input class="QuestionColorCreate" type="color" pattern="#([a-zA-Z0-9]){6}" placeholder="Cor de fundo da pergunta" required>
  
                 <div class="LabelInfoCreate">
                     <h1>Resposta correta</h1>
                     <ion-icon name="create-outline"></ion-icon>
                 </div>
-                <input class="CorrectAnswerCreate" onchange="ValidateInput(this)" type="text" placeholder="Resposta correta">
-                <input class="CorrectURLCreate" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem">
+                <input class="CorrectAnswerCreate"  type="text" placeholder="Resposta correta" required>
+                <input class="CorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem" required>
 
                 <div class="LabelInfoCreate">
                     <h1>Respostas incorretas</h1>
                     <ion-icon name="create-outline"></ion-icon>
+                </div>
 
-                <input class="IncorrectAnswerCreate" onchange="ValidateInput(this)" type="text" placeholder="Resposta incorreta">
-                <input class="IncorrectURLCreate" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem">
+                <input class="IncorrectAnswerCreate"  type="text" placeholder="Resposta incorreta" required>
+                <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem" required>
 
-                <input class="IncorrectAnswerCreate" onchange="ValidateInput(this)" type="text" placeholder="Resposta incorreta">
-                <input class="IncorrectURLCreate" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem">
+                <input class="IncorrectAnswerCreate" type="text" placeholder="Resposta incorreta">
+                <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem">
 
-                <input class="IncorrectAnswerCreate" onchange="ValidateInput(this)" type="text" placeholder="Resposta incorreta">
-                <input class="IncorrectURLCreate" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem">
+                <input class="IncorrectAnswerCreate" type="text" placeholder="Resposta incorreta">
+                <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem">
             </div>
-        </li>`
+        </fieldset>`
 
-        document.querySelector("ul").innerHTML += DomCreateQuestion
+        document.querySelector(".BoxItensCreate").innerHTML += DomCreateQuestion
     }
+    let DOMSubmit = `
+    <input type="submit" class="ButtonContinue" onclick="GoLevelCreate()" value="Prosseguir pra criar os níveis" >`;
+    document.querySelector("form").innerHTML += DOMSubmit
+}}}
 
-}}
-
+const CorrectAnswers = [];
+const IncorrectAnswers = [];
+const CorrectAnswersURL = [];
+const IncorrectAnswersURL = [];
+const QuestionTitle = [];
+const QuestionColor = [];
 
 function GoLevelCreate(){
+    if (ValidateInput()){
+
+        let QuestionTitleCollection = document.getElementsByClassName(".QuestionTitleCreate");
+        for (let i=0; i<QuestionTitleCollection.length;i++){
+            CorrectAnswers.push(QuestionTitleCollection[i].value)
+        }
+        let QuestionColorCollection = document.getElementsByClassName(".QuestionColorCreate");
+        for (let i=0; i<QuestionColorCollection.length;i++){
+            QuestionColor.push(QuestionColorCollection[i].value)
+        }
+
+        let CorrectAnswersCollection = document.getElementsByClassName(".CorrectAnswerCreate");
+        for (let i=0; i<CorrectAnswersCollection.length;i++){
+            CorrectAnswers.push(CorrectAnswersCollection[i].value)
+        }
+        let CorrectURLCollection = document.getElementsByClassName(".CorrectURLCreate");
+        for (let i=0; i<CorrectURLCollection.length;i++){
+            CorrectAnswersURL.push(CorrectURLCollection[i].value)
+        }
+
+        let fieldsetSelector = document.getElementsByTagName("fieldset");
+
+        for (let i=0; i< fieldsetSelector.length;i++){
+            let incorrectalternatives =[];
+            IncorrectAnswersCollection = fieldsetSelector[i].getElementsByClassName(".IncorrectAnswerCreate");
+            for (let j=0; j<IncorrectAnswersCollection.length;j++){
+                incorrectalternatives.push(IncorrectAnswersCollection[j].value)
+            }
+            IncorrectAnswers.push(incorrectalternatives)
+        }
+
+        for (let i=0; i< fieldsetSelector.length;i++){
+            let incorrecturlalternatives =[];
+            IncorrectURLAnswersCollection = fieldsetSelector[i].getElementsByClassName(".IncorrectURLCreate");
+            for (let j=0; j<IncorrectURLAnswersCollection.length;j++){
+                incorrecturlalternatives.push(IncorrectURLAnswersCollection[j].value)
+            }
+            IncorrectAnswersURL.push(incorrecturlalternatives)
+        }
+    
+
+        let HearderLevelCreate = `
+        <div class="ContentCreate">
+            <h1>Crie suas perguntas</h1>
+            <form> 
+                <div class="BoxItensCreate">
+                </div>
+            </form>
+
+    </div>`;
+    }
 
 }
+
 function OpenQuestionForm(element){
     const openedquestion = document.querySelectorAll('.QuestionCreating');
     if(openedquestion != null){
@@ -106,61 +169,29 @@ function OpenQuestionForm(element){
 }
 
 
+function ValidateInput(){
 
-function ValidateInput(element) {
-    console.log(element.value);
-    let elementContent = element.value;
-    switch (element.type) {
-        case "text":
-            if (elementContent.length<20||elementContent.length>65){
-                alert("Por favor insira um nome entre 20 e 65 caracteres");
-            }
-            break;
-        
-        case "url":
-            regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-        if (!regexp.test(elementContent))
-        {
-        alert("por favor insira uma URL válida");
-        }
-            break;
-        
-        case "number":
-            if (elementContent<element.min){
-                alert(`Por favor insira um valor acima de ${element.min}`);
-            }
-            break;
-        default:
-            break;
-    }
-  }
+    let AllInputs= document.getElementsByTagName('input')
 
-  function ValidateInputQuestion(element) {
-    console.log(element.value);
-    let elementContent = element.value;
-    switch (element.type) {
-        case "text":
-            if (elementContent.length<20){
-                alert("Por favor insira uma pergunta com pelo menos 20 caracteres");
+    let valid=true;
+    let i=0;
+    while (i<AllInputs.length && valid===true){
+        const inpObj = AllInputs[i];
+        console.log(inpObj)
+        if (!inpObj.checkValidity()) {
+            if (!inpObj.parentElement.classList.contains("QuestionCreating")){
+                let openedquestion = document.querySelectorAll('.QuestionCreating');
+                for (let n=0; n< openedquestion.length;n++){
+                    openedquestion[n].classList.remove("QuestionCreating")
+                    openedquestion[n].classList.add("QuestionNOTCreating")
+                    }
+                inpObj.parentElement.classList.add("QuestionCreating")
+                inpObj.parentElement.classList.remove("QuestionNOTCreating")
             }
-            break;
-        
-        case "url":
-            regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-        if (!regexp.test(elementContent))
-        {
-        alert("por favor insira uma URL válida");
-        }
-            break;
-
-        
-        case "color":
-            if (elementContent[0] !== '#'|| elementContent.length!=7){
-                alert(`Por favor insira um valor acima de ${element.min}`);
-            }
-            break;
-        default:
-            break;
-    }
-  }
-  
+            valid=false;
+            alert(inpObj.validationMessage);
+         } 
+            i+=1;
+        } 
+    return valid;
+}
