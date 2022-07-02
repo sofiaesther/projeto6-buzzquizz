@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap');
+
 body{
     background-color: #fafafa;
     display: flex;
@@ -86,3 +88,84 @@ input{
     font-weight:100;
     font-style: italic;
   }
+.invisible{
+    display: none;
+}
+.ButtonCreateQuizz {
+    width: 1050px;
+    height: 180px;
+    margin-top: 150px;
+    border: 1px dashed #D5D5D5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+.initialPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.ButtonCreateQuizz h1{
+    text-align: center;
+    width: 250px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 400;
+    color: #B9B9B9;
+}
+.ButtonCreateQuizz h2{
+    width: 136px;
+    height: 40px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #EC362D;
+    border: 1px dashed #EC362D;
+    border-radius: 50px;
+}
+.allQuizzes {
+    width: 1050px;
+    height: 500px;
+    margin-top: 80px;
+
+}
+.allQuizzes h1{
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.imageApi{
+    width: 330px;
+    height: 181px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(image.png);
+    border-radius: 5px;
+    position: relative;
+}
+.titleApi{
+    font-family: Roboto;
+    width: 300px;
+    height: 54px;
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    color: #ffffff;
+    margin-top: 120px;
+    margin-left: 15px;
+    z-index: 1;
+
+}
+.allQuizzes ul{
+    
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}

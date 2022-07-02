@@ -1,3 +1,29 @@
+//Initial Page
+let quizzContent = document.querySelector('.allQuizzes > ul')
+let quizzes = []
+
+function getQuizzesApi (){
+    let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
+    promise.then(response => {
+        quizzes = response.data;
+        document.querySelector('.allQuizzes > ul').innerHTML = "";
+
+        for (let i = 0; i < quizzes.length; i++){
+            let image = quizzes[i].image
+            let titulo = quizzes[i].title
+            let id = quizzes[i].id
+            document.querySelector('.allQuizzes > ul').innerHTML += `
+                <li>
+                    <img class="imageApi" src= ${image}/>
+                    <p class="titleApi">${titulo}</p>
+                    <h6 class="invisible">${id}</h6>
+                </li>
+            `
+        }
+    })
+}
+getQuizzesApi();
+
 function GoCreateQuizz(){
     let DomCreateQuizz =`
     <div class="ContentCreate">
