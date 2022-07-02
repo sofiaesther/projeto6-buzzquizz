@@ -76,6 +76,9 @@ body ion-icon{
     justify-content: center;
     align-items: center;
     margin: 30px auto;
+    font-size: 16px;
+    color: white;
+    font-weight: lighter;
 }
 
 input{
@@ -130,4 +133,13 @@ input::placeholder {
     display: none;
     flex-direction: column;
     justify-content: center;
+}
+
+@media (max-width: 1100px){
+    .LevelDescriptionCreate{
+        height: 177px;
+    }
+    .ContentCreate{
+        width:100%
+    }
 }

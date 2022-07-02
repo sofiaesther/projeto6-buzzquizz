@@ -4,12 +4,12 @@ function GoCreateQuizz(){
     <h1>Comece pelo começo</h1>
     <form> 
     <div class="BoxItensCreate">
-        <input class="TitleCreate" onchange="ValidateInput(this)" type="text" minlength="20" maxlength="65" placeholder="Título do seu quizz" required>
-        <input class="UrlCreate" pattern="https?://.+" onchange="ValidateInput(this)" type="url" placeholder="URL da imagem do seu quizz"required>
-        <input class="QuestionCountCreate" onchange="ValidateInput(this)" type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz" required>
-        <input class="LevelCountCreate" onchange="ValidateInput(this)" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz" required>
+        <input class="TitleCreate" type="text" minlength="20" maxlength="65" placeholder="Título do seu quizz" required>
+        <input class="UrlCreate" pattern="https?://.+" type="url" placeholder="URL da imagem do seu quizz"required>
+        <input class="QuestionCountCreate"  type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz" required>
+        <input class="LevelCountCreate" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz" required>
     </div>
-    <input type="submit" class="ButtonContinue" onclick="GoQuestionCreate()" value="Prosseguir pra criar perguntas" >
+    <input type="submit" class="ButtonContinue" onclick="GoQuestionCreate()" value="Prosseguir pra criar perguntas"/>
     </form> 
 </div>`;
     document.querySelector(".PageContent").innerHTML = DomCreateQuizz;
@@ -45,8 +45,7 @@ function GoQuestionCreate(){
     <div class="ContentCreate">
         <h1>Crie suas perguntas</h1>
             <form> 
-                <div class="BoxItensCreate">
-                </div>
+
             </form>
 
     </div>`;
@@ -55,7 +54,7 @@ function GoQuestionCreate(){
 
     for (let i=1; i<=QuestionCountCreateItem; i++){
         let DomCreateQuestion =
-        `<fieldset>
+        `<fieldset class="BoxItensCreate">
             <div class="LabelInfoCreate">
                     <h1>Pergunta ${i}</h1>
                     <ion-icon name="create-outline"  onclick="OpenQuestionForm(this.parentElement)"></ion-icon>
@@ -87,7 +86,7 @@ function GoQuestionCreate(){
             </div>
         </fieldset>`
 
-        document.querySelector(".BoxItensCreate").innerHTML += DomCreateQuestion
+        document.querySelector("form").innerHTML += DomCreateQuestion
     }
     let DOMSubmit = `
     <input type="submit" class="ButtonContinue" onclick="GoLevelCreate()" value="Prosseguir pra criar os níveis" >`;
@@ -145,15 +144,38 @@ function GoLevelCreate(){
 
         let HearderLevelCreate = `
         <div class="ContentCreate">
-            <h1>Crie suas perguntas</h1>
+            <h1>Agora, decida os níveis!</h1>
             <form> 
-                <div class="BoxItensCreate">
-                </div>
             </form>
 
     </div>`;
+    document.querySelector(".PageContent").innerHTML = HearderLevelCreate
+
+    for (let i=1; i<=LevelCountCreateItem; i++){
+        let DomCreateLevel =
+        `<fieldset class="BoxItensCreate">
+            <div class="LabelInfoCreate">
+                    <h1>Nível ${i}</h1>
+                    <ion-icon name="create-outline"  onclick="OpenQuestionForm(this.parentElement)"></ion-icon>
+            </div>
+            <div class="QuestionNOTCreating">
+                <input class="LevelTitleCreate" type="text" minlength="10" placeholder="Título do nível" required>
+                <input class="LevelPercentageCreate" type="number" min="0" max="100" placeholder="% de acerto mínima" required>
+                <input class="LevelURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem do nível" required>
+                <input class="LevelDescriptionCreate" type="text" minlength="30" placeholder="Descrição do nível" required>
+            </div>
+        </fieldset>`
+
+        document.querySelector("form").innerHTML += DomCreateLevel
+    }
+    let DOMSubmit = ` <input type="submit" class="ButtonContinue" onclick="FinishCreate()" value="Finalizar o quizz" >`;
+    document.querySelector("form").innerHTML += DOMSubmit
     }
 
+}
+
+function FinishCreate(){
+    console.log(CorrectAnswers,CorrectAnswersURL,IncorrectAnswers,IncorrectAnswersURL)
 }
 
 function OpenQuestionForm(element){
