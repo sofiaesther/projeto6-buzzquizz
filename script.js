@@ -164,8 +164,10 @@ function GoLevelCreate(){
         for (let i=0; i< fieldsetSelector.length;i++){
             let incorrecturlalternatives =[];
             IncorrectURLAnswersCollection = fieldsetSelector[i].getElementsByClassName(".IncorrectURLCreate");
+            console.log(IncorrectURLAnswersCollection.value)
             for (let j=0; j<IncorrectURLAnswersCollection.length;j++){
                 incorrecturlalternatives.push(IncorrectURLAnswersCollection[j].value)
+                console.log(IncorrectURLAnswersCollection[j].value)
             }
             IncorrectAnswersURL.push(incorrecturlalternatives)
         }
@@ -201,10 +203,45 @@ function GoLevelCreate(){
     document.querySelector("form").innerHTML += DOMSubmit
     }
 
+    console.log(CorrectAnswers)
+    console.log(CorrectAnswersURL)
+    console.log(IncorrectAnswers)
+    console.log(IncorrectAnswersURL)
+
 }
+const LevelTitle =[];
+const LevelPercentage=[];
+const LevelURL=[];
+const LevelDescription=[];
 
 function FinishCreate(){
-    console.log(CorrectAnswers,CorrectAnswersURL,IncorrectAnswers,IncorrectAnswersURL)
+    let LevelPercentageCheck;
+    let LevelPercentageCollection = document.getElementsByClassName(".LevelPercentageCreate");
+    for (let i=0; i<LevelPercentageCollection.length;i++){
+        LevelPercentageCheck.push(LevelPercentageCollection[i].value)
+    }
+
+
+    if (ValidateInput()&&LevelPercentageCheck.includes("0")){
+        LevelPercentage = LevelPercentageCheck;
+        let LevelTitleCollection = document.getElementsByClassName(".LevelTitleCreate");
+        for (let i=0; i<LevelTitleCollection.length;i++){
+            LevelTitle.push(LevelTitleCollection[i].value)
+        }
+
+        let LevelURLCollection = document.getElementsByClassName(".LevelURLCreate");
+        for (let i=0; i<LevelURLCollection.length;i++){
+            LevelURL.push(LevelURLCollection[i].value)
+        }
+
+        let LevelDescriptionCollection = document.getElementsByClassName(".LevelDescriptionCreate");
+        for (let i=0; i<LevelDescriptionCollection.length;i++){
+            LevelDescription.push(LevelDescriptionCollection[i].value)
+        }
+    } else if(!LevelPercentageCheck.includes("0")){
+        alert("Pelo menos um nível deve ter 0% de percentual mínimo de acertos")
+    }
+
 }
 
 function OpenQuestionForm(element){
