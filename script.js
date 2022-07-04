@@ -38,8 +38,10 @@ function GoCreateQuizz(){
         <input class="QuestionCountCreate"  type="number" min="3" value="3" step="1" placeholder="Quantidade de perguntas do quizz" required>
         <input class="LevelCountCreate" type="number" min="2" value="2" step="1" placeholder="Quantidade de níveis do quizz" required>
     </div>
-    <input type="submit" class="ButtonContinue" onclick="GoQuestionCreate()" value="Prosseguir pra criar perguntas"/>
     </form> 
+    <div class="ButtonContinue" onclick="GoQuestionCreate()"> 
+    <h3>"Prosseguir pra criar as perguntas" </h3>
+    </div>
 </div>`;
     document.querySelector(".PageContent").innerHTML = DomCreateQuizz;
 }
@@ -60,7 +62,7 @@ function GoQuestionCreate(){
 
 
     console.log (TitleCreateItem)
-    console.log( UrlCreateItem)
+    console.log(UrlCreateItem)
     console.log(QuestionCountCreateItem)
     console.log(LevelCountCreateItem)
 
@@ -90,14 +92,14 @@ function GoQuestionCreate(){
             </div>
             <div class="QuestionNOTCreating">
                 <input class="QuestionTitleCreate" type="text" minlength="20" placeholder="Texto da pergunta" required>
-                <input class="QuestionColorCreate" type="color" pattern="#([a-zA-Z0-9]){6}" placeholder="Cor de fundo da pergunta" required>
+                <input class="QuestionColorCreate" type="color" pattern="#([a-zA-Z0-9]){6}" placeholder="Cor de fundo da pergunta">
  
                 <div class="LabelInfoCreate">
                     <h1>Resposta correta</h1>
                     <ion-icon name="create-outline"></ion-icon>
                 </div>
                 <input class="CorrectAnswerCreate"  type="text" placeholder="Resposta correta" required>
-                <input class="CorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem" required>
+                <input class="CorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem">
 
                 <div class="LabelInfoCreate">
                     <h1>Respostas incorretas</h1>
@@ -105,7 +107,7 @@ function GoQuestionCreate(){
                 </div>
 
                 <input class="IncorrectAnswerCreate"  type="text" placeholder="Resposta incorreta" required>
-                <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem" required>
+                <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem">
 
                 <input class="IncorrectAnswerCreate" type="text" placeholder="Resposta incorreta">
                 <input class="IncorrectURLCreate" type="url" pattern="https?://.+" placeholder="URL da imagem">
@@ -118,59 +120,69 @@ function GoQuestionCreate(){
         document.querySelector("form").innerHTML += DomCreateQuestion
     }
     let DOMSubmit = `
-    <input type="submit" class="ButtonContinue" onclick="GoLevelCreate()" value="Prosseguir pra criar os níveis" >`;
+    <div class="ButtonContinue" onclick="GoLevelCreate()"> 
+    <h3>"Prosseguir pra criar os níveis" </h3>
+    </div>
+    `;
     document.querySelector("form").innerHTML += DOMSubmit
 }}}
 
-const CorrectAnswers = [];
-const IncorrectAnswers = [];
-const CorrectAnswersURL = [];
-const IncorrectAnswersURL = [];
-const QuestionTitle = [];
-const QuestionColor = [];
+let CorrectAnswers = [];
+let IncorrectAnswers = [];
+let CorrectAnswersURL = [];
+let IncorrectAnswersURL = [];
+let QuestionTitle = [];
+let QuestionColor = [];
 
 function GoLevelCreate(){
     if (ValidateInput()){
 
-        let QuestionTitleCollection = document.getElementsByClassName(".QuestionTitleCreate");
+        let QuestionTitleCollection = document.getElementsByClassName("QuestionTitleCreate");
         for (let i=0; i<QuestionTitleCollection.length;i++){
-            CorrectAnswers.push(QuestionTitleCollection[i].value)
+            QuestionTitle.push(QuestionTitleCollection[i].value)
         }
-        let QuestionColorCollection = document.getElementsByClassName(".QuestionColorCreate");
+        let QuestionColorCollection = document.getElementsByClassName("QuestionColorCreate");
         for (let i=0; i<QuestionColorCollection.length;i++){
             QuestionColor.push(QuestionColorCollection[i].value)
         }
 
-        let CorrectAnswersCollection = document.getElementsByClassName(".CorrectAnswerCreate");
+        let CorrectAnswersCollection = document.getElementsByClassName("CorrectAnswerCreate");
         for (let i=0; i<CorrectAnswersCollection.length;i++){
             CorrectAnswers.push(CorrectAnswersCollection[i].value)
         }
-        let CorrectURLCollection = document.getElementsByClassName(".CorrectURLCreate");
+        let CorrectURLCollection = document.getElementsByClassName("CorrectURLCreate");
         for (let i=0; i<CorrectURLCollection.length;i++){
             CorrectAnswersURL.push(CorrectURLCollection[i].value)
         }
 
         let fieldsetSelector = document.getElementsByTagName("fieldset");
 
-        for (let i=0; i< fieldsetSelector.length;i++){
+        for (let i=0; i<fieldsetSelector.length;i++){
+            let incorrecturlalternatives =[];
             let incorrectalternatives =[];
-            IncorrectAnswersCollection = fieldsetSelector[i].getElementsByClassName(".IncorrectAnswerCreate");
+            let IncorrectAnswersCollection = fieldsetSelector[i].getElementsByClassName("IncorrectAnswerCreate");
+            let IncorrectURLAnswersCollection = fieldsetSelector[i].getElementsByClassName("IncorrectURLCreate");
+            console.log(IncorrectAnswersCollection, "incorrect collection");
+            console.log(IncorrectURLAnswersCollection, "incorrect collection url");
+
+            console.log(IncorrectAnswersCollection.length)
             for (let j=0; j<IncorrectAnswersCollection.length;j++){
-                incorrectalternatives.push(IncorrectAnswersCollection[j].value)
+                if(IncorrectAnswersCollection[j].value!=""){
+                    console.log(IncorrectAnswersCollection[j].value, "incorrect collection j");
+                    console.log(IncorrectURLAnswersCollection[j].value, "incorrect collection j");
+                    incorrectalternatives.push(IncorrectAnswersCollection[j].value) 
+                    incorrecturlalternatives.push(IncorrectURLAnswersCollection[j].value)          
+                }
+        
             }
             IncorrectAnswers.push(incorrectalternatives)
-        }
-
-        for (let i=0; i< fieldsetSelector.length;i++){
-            let incorrecturlalternatives =[];
-            IncorrectURLAnswersCollection = fieldsetSelector[i].getElementsByClassName(".IncorrectURLCreate");
-            console.log(IncorrectURLAnswersCollection.value)
-            for (let j=0; j<IncorrectURLAnswersCollection.length;j++){
-                incorrecturlalternatives.push(IncorrectURLAnswersCollection[j].value)
-                console.log(IncorrectURLAnswersCollection[j].value)
-            }
             IncorrectAnswersURL.push(incorrecturlalternatives)
+
+            console.log(incorrectalternatives, "incorrect alt")
+            console.log(incorrecturlalternatives,"inco url alt")
         }
+        console.log(IncorrectAnswers, "incorrect")
+        console.log(IncorrectAnswersURL,"inco url")
     
 
         let HearderLevelCreate = `
@@ -199,51 +211,83 @@ function GoLevelCreate(){
 
         document.querySelector("form").innerHTML += DomCreateLevel
     }
-    let DOMSubmit = ` <input type="submit" class="ButtonContinue" onclick="FinishCreate()" value="Finalizar o quizz" >`;
+    let DOMSubmit = 
+    `
+    <div class="ButtonContinue" onclick="FinishCreate()"> 
+    <h3>"Finalizar o quizz" </h3>
+    </div>
+    `;
     document.querySelector("form").innerHTML += DOMSubmit
     }
 
-    console.log(CorrectAnswers)
-    console.log(CorrectAnswersURL)
-    console.log(IncorrectAnswers)
-    console.log(IncorrectAnswersURL)
+
 
 }
-const LevelTitle =[];
-const LevelPercentage=[];
-const LevelURL=[];
-const LevelDescription=[];
+let LevelTitle =[];
+let LevelPercentage=[];
+let LevelURL=[];
+let LevelDescription=[];
 
 function FinishCreate(){
-    let LevelPercentageCheck;
-    let LevelPercentageCollection = document.getElementsByClassName(".LevelPercentageCreate");
+    let LevelPercentageCheck=[];
+    let LevelPercentageCollection = document.getElementsByClassName("LevelPercentageCreate");
     for (let i=0; i<LevelPercentageCollection.length;i++){
         LevelPercentageCheck.push(LevelPercentageCollection[i].value)
     }
 
 
-    if (ValidateInput()&&LevelPercentageCheck.includes("0")){
+    if (ValidateInput() && LevelPercentageCheck.includes("0")){
         LevelPercentage = LevelPercentageCheck;
-        let LevelTitleCollection = document.getElementsByClassName(".LevelTitleCreate");
+        let LevelTitleCollection = document.getElementsByClassName("LevelTitleCreate");
         for (let i=0; i<LevelTitleCollection.length;i++){
             LevelTitle.push(LevelTitleCollection[i].value)
         }
 
-        let LevelURLCollection = document.getElementsByClassName(".LevelURLCreate");
+        let LevelURLCollection = document.getElementsByClassName("LevelURLCreate");
         for (let i=0; i<LevelURLCollection.length;i++){
             LevelURL.push(LevelURLCollection[i].value)
         }
 
-        let LevelDescriptionCollection = document.getElementsByClassName(".LevelDescriptionCreate");
+        let LevelDescriptionCollection = document.getElementsByClassName("LevelDescriptionCreate");
         for (let i=0; i<LevelDescriptionCollection.length;i++){
             LevelDescription.push(LevelDescriptionCollection[i].value)
         }
-    } else if(!LevelPercentageCheck.includes("0")){
-        alert("Pelo menos um nível deve ter 0% de percentual mínimo de acertos")
-    }
 
+let QuizzFullAPI = CreateQuizzAPI()
+const PostCreateQuizz = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', QuizzFullAPI)
+
+PostCreateQuizz.then(PostCreateQuizzSucess);
+PostCreateQuizz.catch(PostCreateQuizzError);
+
+}else if(!LevelPercentageCheck.includes("0")){
+    alert("Pelo menos um nível deve ter 0% de percentual mínimo de acertos");
+}
 }
 
+function PostCreateQuizzSucess(){
+    let HearderFinishCreate = `
+    <div class="ContentCreate">
+        <h1>Seu quizz está pronto!</h1>
+        <div class="FinishCreate" style="background-image: url('${UrlCreateItem}')">
+            <div class="FinishCreateTitle degrade">
+                <h3>${TitleCreateItem}</h3>
+            </div>
+        </div>
+
+        <div class="ButtonContinue" onclick="CreateQuizzAPI()"> 
+            <h3>"Finalizar o quizz" </h3>
+        </div>
+        <div onclick="GoBackHome()">
+            <h1>Voltar pra home</h1>
+        </div>
+    </div>`;
+document.querySelector(".PageContent").innerHTML = HearderFinishCreate
+}
+
+function PostCreateQuizzError(){
+    alert("Aconteceu um erro. Por favor tente de novo :(")
+
+}
 function OpenQuestionForm(element){
     const openedquestion = document.querySelectorAll('.QuestionCreating');
     if(openedquestion != null){
@@ -256,6 +300,71 @@ function OpenQuestionForm(element){
     element.nextElementSibling.classList.remove("QuestionNOTCreating")
 }
 
+function CreateQuizzAPI(){
+    let QuestionsAPI=``;
+    let LevelsAPI=``;
+    for (i=0;i<QuestionCountCreateItem;i++){
+        QuestionsAPI+=`
+        {
+
+        title: "${QuestionTitle[i]}",
+                color: "${QuestionColor[i]}",
+                answers: [
+        {
+            text: "${CorrectAnswers[i]}",
+            image: "${CorrectAnswersURL[i]}",
+            isCorrectAnswer: true
+        }
+        
+        `
+        let IncorrectAnswersItem=IncorrectAnswers[i];
+        let IncorrectAnswersURLItem=IncorrectAnswersURL[i];
+        for(j=0;j<IncorrectAnswersItem.length;j++){
+            QuestionsAPI+=`
+            ,
+                    {
+                        text: "${IncorrectAnswersItem[j]}",
+                        image: "${IncorrectAnswersURLItem[j]}",
+                        isCorrectAnswer: false
+                    }
+            `
+        }
+
+        if (i+1!=(QuestionCountCreateItem)){
+            QuestionsAPI+= `]},`
+        }
+
+    }
+
+
+    for (i=0;i<LevelCountCreateItem;i++){
+        if (i!==0){
+            LevelsAPI+= `,`
+        }
+        LevelsAPI+= `{
+            title: "${LevelTitle[i]}",
+            image: "${LevelURL[i]}",
+            text: "${LevelDescription[i]}",
+            minValue: ${LevelPercentage[i]}
+        }`
+
+
+    }
+    let QuizzDefinition =`
+    {
+        title: "${TitleCreateItem}",
+        image: "${UrlCreateItem}",
+        questions: [
+            ${QuestionsAPI}
+                ]}] ,
+           
+        levels: [
+            ${LevelsAPI}
+        ]
+    }
+    `
+    return QuizzDefinition;
+}
 
 function ValidateInput(){
 
@@ -282,4 +391,8 @@ function ValidateInput(){
             i+=1;
         } 
     return valid;
+}
+
+function GoBackHome(){
+    window.location.reload()
 }
