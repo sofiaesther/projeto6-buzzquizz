@@ -253,8 +253,8 @@ function FinishCreate(){
             LevelDescription.push(LevelDescriptionCollection[i].value)
         }
 
-let QuizzFullAPI = CreateQuizzAPI()
-const PostCreateQuizz = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', QuizzFullAPI)
+let QuizzFullAPI = CreateQuizzAPI();
+const PostCreateQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', QuizzFullAPI);
 
 PostCreateQuizz.then(PostCreateQuizzSucess);
 PostCreateQuizz.catch(PostCreateQuizzError);
