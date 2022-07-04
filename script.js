@@ -250,8 +250,22 @@ function FinishCreate(){
     alert("Pelo menos um nível deve ter 0% de percentual mínimo de acertos");
 }
 }
+let IdQuizzCreated;
+const LocalStorageUser = localStorage.getItem("id");
+const ListIDStorage = JSON.parse(LocalStorageUser);
 
-function PostCreateQuizzSucess(){
+function PostCreateQuizzSucess(response){
+    IdQuizzCreated = response.data.id
+    let SerialListIDStorage =[];
+    if (ListIDStorage!=null){
+    ListIDStorage.push(IdQuizzCreated)
+    SerialListIDStorage = JSON.stringify(ListIDStorage);
+    } else{
+    SerialListIDStorage = JSON.stringify([IdQuizzCreated]);
+    }
+    localStorage.setItem("ID", SerialListIDStorage);
+
+
     let HearderFinishCreate = `
     <div class="ContentCreate">
         <h1>Seu quizz está pronto!</h1>
@@ -271,8 +285,8 @@ function PostCreateQuizzSucess(){
 document.querySelector(".PageContent").innerHTML = HearderFinishCreate
 }
 
-function PostCreateQuizzError(){
-    alert("Aconteceu um erro. Por favor tente de novo :(")
+function PostCreateQuizzError(response){
+    alert("Aconteceu um erro. Por favor tente de novo :(", response)
 }
 let QuizzDefinition;
 function OpenQuestionForm(element){
