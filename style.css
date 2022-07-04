@@ -137,7 +137,6 @@ input::placeholder {
     flex-direction: column;
     justify-content: center;
 }
-
 .ButtonCreateQuizz {
     width: 1050px;
     height: 180px;
@@ -189,23 +188,23 @@ input::placeholder {
 .imageApi{
     width: 330px;
     height: 181px;
-    margin: 0 6px 25px 0px;
+    margin: 0 6px 12px 6px;
     background-repeat: no-repeat; 
     background-position: center; 
     background-size: cover;
     border-radius: 5px;
 }
 .allQuizzes ul{
-    height: 400px;
+    height: 380px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 25px;
+    margin-top: 15px;
     overflow: hidden;
 }
 .degrade{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
-    width: 100%; 
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: flex-end;
@@ -219,6 +218,116 @@ input::placeholder {
     margin: 0 0 7px 18px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.FinishCreate{
+    object-fit:cover;
+    width: 500px;
+    height: 266px;
+    margin-top: 30px;
+    border-radius: 5px;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.FinishCreateTitle{
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+    font-size: 23px;
+    font-weight: bold;
+    z-index: 2;
+}
+.FinishCreateTitle h3{
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+.opacity{
+    opacity: 0.3;
+}
+.right{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.wrong{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.resultBox{
+    width: 759px;
+    height: 430px;
+    background-color: #FFFFFF;
+    margin-top: 44px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.percentage{
+    width: 727px;
+    height: 99px;
+    background-color: #EC362D;
+    margin: 18px 18px;
+    display: flex;
+    justify-content: center;   
+    align-items: center; 
+}
+.percentage > h1{
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 23px;
+    color: #FFFFFF;
+}
+.textImage{
+    display: flex;
+    height: 273px;
+    background-color: #009C22;
+    margin: 18px 18px;
+}
+.resultImage > img{
+    width: 100%;
+    height: 100%;
+}
+.resultText{
+    width: 340px;
+    height: 96px;
+    margin-top: 18px;
+}
+.resultText > h6{
+    width: 100%;
+    height: 100%;
+    word-wrap: break-word;
+}
+.restart{
+    width: 260px;
+    height: 52px;
+    background: #EC362D;
+    border-radius: 15px;
+    margin-top: 51px;
+    border: none;
+}
+.restart > h1{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    color: #FFF5F4;
+}
+.back {
+    width: 260px;
+    height: 52px;
+    border-radius: 15px;
+    margin-top: 16px;
+    border: none;
+}
+.back > h1{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
 }
 .quizzPage{
     display: flex;
@@ -236,7 +345,7 @@ input::placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 .opacityFilter{
     background-color: rgba(0, 0, 0, 0.6);    
@@ -245,7 +354,7 @@ input::placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 .opacityFilter > h1{
     font-size: 39px;
@@ -309,95 +418,6 @@ input::placeholder {
 
 .red{
     color:#FF4B4B;
-}
-
-.opacity{
-    opacity: 0.3;
-}
-.right{
-    margin-top: 10px;
-    font-family: Roboto;
-    font-size: 20px;
-    font-weight: 700;
-}
-.wrong{
-    margin-top: 10px;
-    font-family: Roboto;
-    font-size: 20px;
-    font-weight: 700;
-}
-.resultBox{
-    width: 759px;
-    height: 430px;
-    background-color: #FFFFFF;
-    margin-top: 44px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-}
-.percentage{
-    width: 727px;
-    height: 99px;
-    background-color: #EC362D;
-    margin: 18px 18px;
-    display: flex;
-    justify-content: center;   
-    align-items: center; 
-}
-.percentage > h1{
-    font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 23px;
-    color: #FFFFFF;
-}
-.textImage{
-    display: flex;
-}
-.resultImage{
-    width: 364px;
-    height: 273px;
-    background-color: #009C22;
-    margin: 18px 18px;
-}
-.resultImage > img{
-    width: 100%;
-    height: 100%;
-}
-.resultText{
-    width: 340px;
-    height: 96px;
-    margin-top: 18px;
-}
-.resultText > h6{
-    width: 100%;
-    height: 100%;
-    word-wrap: break-word;
-}
-.restart{
-    width: 260px;
-    height: 52px;
-    background: #EC362D;
-    border-radius: 15px;
-    margin-top: 51px;
-    border: none;
-}
-.restart > h1{
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21px;
-    color: #FFF5F4;
-}
-.back {
-    width: 260px;
-    height: 52px;
-    border-radius: 15px;
-    margin-top: 16px;
-    border: none;
-}
-.back > h1{
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 21px;
 }
 .invisible{
     display: none;
