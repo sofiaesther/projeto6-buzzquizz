@@ -5,6 +5,7 @@ let currentQuizz = {}
 
 function getQuizzesApi (){
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
+
     promise.then(response => {
         quizzes = response.data;
         document.querySelector('.allQuizzes > ul').innerHTML = "";
@@ -37,6 +38,7 @@ function playQuizz(quizz){
     const quizzId = quizz.getAttribute("id")
 
     let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzId}`)
+    
     promise.then(response => {
         currentQuizz = response.data
         startQuizz()
@@ -69,11 +71,9 @@ function startQuizz(){
         for (let i=0; i < answer.length; i++){
             if (answer[i].isCorrectAnswer){
                 answerBox += `
-                    <li onclick="showAnswer(this)" class="options">
-                        <img src="${answer[i].image}"currentQuizz
                 <li onclick="showAnswer(this)" class="options">
                     <img src="${answer[i].image}"/>
-                    <h1 class="wrong">${answer[i].text}</h1>
+                    <h1 class="right">${answer[i].text}</h1>
                 </li>
                 `
             }else{
@@ -89,7 +89,7 @@ function startQuizz(){
         }
         
         document.querySelector(".quizzPage").innerHTML += `
-            <div class="questionBox">currentQuizz
+            <div class="questionBox">
                 ${questionBox}
                 <ul>${answerBox}</ul>
             </div>
@@ -104,8 +104,8 @@ function startQuizz(){
 
             <div class="textImage">
                 <div class="resultImage"></div>
-                    <div class="resultText"
-                        <h6>Parabens</h6>
+                    <div class="resultText">
+                        <h6>Parabéns</h6>
                     </div>
             </div>
         </div>
@@ -118,24 +118,24 @@ function startQuizz(){
     `
 }
 
-function showAnswer(resposta){
+function showAnswer(clickQuestion){
 
-    resposta.parentNode.querySelector(".right").classList.add("green");
+    clickQuestion.parentNode.querySelector(".right").classList.add("green");
 
-    let wrong = resposta.parentNode.querySelectorAll(".wrong")
+    let wrong = clickQuestion.parentNode.querySelectorAll(".wrong")
 
     for(let i=0; i < wrong.length; i++){
         wrong[i].classList.add("red");
     }
 
-    let respostas = resposta.parentNode.querySelectorAll(".options")
+    let clickQuestions = clickQuestion.parentNode.querySelectorAll(".options")
 
-    for(let i=0; i < respostas.length; i++){
-        respostas[i].classList.add("opacity");
-        respostas[i].removeAttribute("onclick");
+    for(let i=0; i < clickQuestions.length; i++){
+        clickQuestions[i].classList.add("opacity");
+        clickQuestions[i].removeAttribute("onclick");
     }
 
-    resposta.classList.remove("opacity");
+    clickQuestion.classList.remove("opacity");
     
     scrollar()
 
@@ -186,7 +186,7 @@ function quizzResult(){
         ${hitPercentage}% de acerto: ${userLevel.title}.
        `
        document.querySelector(".textImage > .resultText").innerHTML=`
-        <img src = "${userLevel.image}">
+        <img src="${userLevel.image}">
        `
        document.querySelector(".textImage > .resultText > h6").innerHTML=`
         ${userLevel.text}

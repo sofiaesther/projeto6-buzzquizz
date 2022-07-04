@@ -200,7 +200,6 @@ input::placeholder {
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 15px;
-    overflow: hidden;
 }
 .degrade{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
@@ -247,18 +246,7 @@ input::placeholder {
 .opacity{
     opacity: 0.3;
 }
-.right{
-    margin-top: 10px;
-    font-family: Roboto;
-    font-size: 20px;
-    font-weight: 700;
-}
-.wrong{
-    margin-top: 10px;
-    font-family: Roboto;
-    font-size: 20px;
-    font-weight: 700;
-}
+
 .resultBox{
     width: 759px;
     height: 430px;
@@ -418,6 +406,18 @@ input::placeholder {
 
 .red{
     color:#FF4B4B;
+}
+.right{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.wrong{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
 }
 .invisible{
     display: none;
