@@ -1,6 +1,7 @@
 //Initial Page
 let quizzContent = document.querySelector('.allQuizzes > ul')
 let quizzes = []
+let currentQuizz = {}
 
 function getQuizzesApi (){
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -14,7 +15,7 @@ function getQuizzesApi (){
             let id = quizzes[i].id
             document.querySelector('.allQuizzes > ul').innerHTML += `
                 <li>
-                    <div class="imageApi" id="${id}" style="background-image: url('${image}')">
+                    <div class="imageApi" onclick = "playQuizz(this)" id="${id}" style="background-image: url('${image}')">
                         <div class="degrade">
                             <h4>${titulo}</h4>
                         </div>
@@ -26,6 +27,110 @@ function getQuizzesApi (){
     })
 }
 getQuizzesApi();
+
+function playQuizz(quizz){
+    let start = document.querySelector('.initialPage');
+    start.classList.add("invisible");
+    let pageTwo = document.querySelector('.quizzPage')
+    pageTwo.classList.remove("invisible");
+    
+    const quizzId = quizz.getAttribute("id")
+
+    let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzId}`)
+    promise.then(response => {
+        currentQuizz = response.data
+        startQuizz()
+    })
+}
+
+function startQuizz(){
+    document.querySelector('.quizzPage').innerHTML = `
+        <ul class="quizzTitle" style="background-image: url(${currentQuizz.image})">
+            <div class="opacityFilter">
+                <h1>
+                    ${currentQuizz.title}
+                </h1>
+            </div>
+        </ul>
+    `
+    let quizzOptions = currentQuizz.questions;
+    
+    for (let i=0; i < quizzOptions.length; i++){
+        
+        let questionBox = `
+            <div class="quizzQuestion" style="background-color:${quizzOptions[i].color}">
+                <h1>${quizzOptions[i].title}</h1>
+            </div>
+        `
+
+        let answerBox = "";
+        const answer = quizzOptions[i].answers;
+
+        for (let i=0; i < answer.length; i++){
+            if (answer[i].isCorrectAnswer){
+                answerBox += `
+                    <li onclick="showAnswer(this)" class="options">
+                        <img src="${answer[i].image}"/>
+                        <h1 class="right">${answer[i].text}</h1>
+                    </li>
+                `
+            }else{
+                answerBox += `
+                <li onclick="showAnswer(this)" class="options">
+                    <img src="${answer[i].image}"/>
+                    <h1 class="wrong">${answer[i].text}</h1>
+                </li>
+                `
+            }
+
+        }
+        
+        document.querySelector(".quizzPage").innerHTML += `
+            <div class="questionBox">
+                ${questionBox}
+                <ul>${answerBox}</ul>
+            </div>
+        `
+    }
+}
+
+function showAnswer(resposta){
+
+    resposta.parentNode.querySelector(".right").classList.add("green");
+
+    let errada = resposta.parentNode.querySelectorAll(".wrong")
+
+    for(let i=0; i < errada.length; i++){
+        errada[i].classList.add("red");
+    }
+
+    let respostas = resposta.parentNode.querySelectorAll(".options")
+
+    for(let i=0; i < respostas.length; i++){
+        respostas[i].classList.add("opacity");
+        respostas[i].removeAttribute("onclick");
+    }
+
+    resposta.classList.remove("opacity");
+    
+    scrollar()
+
+}
+
+function scrollar(){
+    setTimeout(function (){
+        let questions = document.querySelectorAll(".questionBox");
+        for (let i=0; i < questions.length; i++){
+            let containsGreen = questions[i].querySelector("li").classList.contains("green");
+            let containsRed = questions[i].querySelector("li").classList.contains("red");
+
+            if(!(containsGreen || containsRed)){
+                questions[i].scrollIntoView();
+                break;
+            }
+        }
+    }, 2000);
+}
 
 function GoCreateQuizz(){
     let DomCreateQuizz =`

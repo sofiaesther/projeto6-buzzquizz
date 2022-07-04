@@ -137,9 +137,7 @@ input::placeholder {
     flex-direction: column;
     justify-content: center;
 }
-.invisible{
-    display: none;
-}
+
 .ButtonCreateQuizz {
     width: 1050px;
     height: 180px;
@@ -191,21 +189,23 @@ input::placeholder {
 .imageApi{
     width: 330px;
     height: 181px;
-    margin: 0 6px 12px 6px;
+    margin: 0 6px 25px 0px;
     background-repeat: no-repeat; 
     background-position: center; 
     background-size: cover;
     border-radius: 5px;
 }
 .allQuizzes ul{
+    height: 400px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin-top: 25px;
+    overflow: hidden;
 }
 .degrade{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
-    width: 100%;
+    width: 100%; 
     height: 100%;
     display: flex;
     align-items: flex-end;
@@ -220,7 +220,115 @@ input::placeholder {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.quizzPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.quizzTitle{
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 227px;
+    margin-top: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.opacityFilter{
+    background-color: rgba(0, 0, 0, 0.6);    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.opacityFilter > h1{
+    font-size: 39px;
+    width: 1051px;
+    line-height: 22px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;    
 
+}
+.quizzQuestion{
+    width: 680px;
+    height: 137.99px;
+    margin: 28px 36px;
+}
+
+.quizzQuestion > h1{
+    text-align: center;
+    padding: 60px 0;
+    font-size: 23px;
+    font-weight: bold;
+    color:#FFFFFF;
+}
+.options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+.options > img{
+    width: 300px;
+    height: 175px;
+}
+.options > h1{
+    margin-left: 36px;
+    font-size: 20px; 
+    font-weight: bold;
+    width: 330px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.questionBox{
+    width: 759px;
+    left: 340px;
+    margin-top: 42px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.questionBox > ul{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 740px;
+    margin-block-end: 0;
+    margin-block-start: 0;
+    padding-inline-start: 0;
+}
+.green{
+    color: #009C22;
+}
+
+.red{
+    color:#FF4B4B;
+}
+
+.opacity{
+    opacity: 0.3;
+}
+.right{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.wrong{
+    margin-top: 10px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 700;
+}
+.invisible{
+    display: none;
+}
 @media (max-width: 1100px){
     .LevelDescriptionCreate{
         height: 177px;
