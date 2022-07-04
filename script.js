@@ -92,16 +92,37 @@ function startQuizz(){
             </div>
         `
     }
+
+    document.querySelector(".quizzPage").innerHTML+=`
+        <div class="resultBox invisible">
+            <div class="percentage">
+                <h1>este é o seu resultado</h1>
+            </div>
+
+            <div class="textImage">
+                <div class="resultImage"></div>
+                    <div class="resultText"
+                        <h6>Parabens</h6>
+                    </div>
+            </div>
+        </div>
+            <button onclick="restartQuizz()" class="restart">
+                <h1>Reiniciar quizz</h1>
+            </button>
+            <button onclick="backHome()" class="back"
+                <h1>Voltar pra home</h1>
+            </button>
+    `
 }
 
 function showAnswer(resposta){
 
     resposta.parentNode.querySelector(".right").classList.add("green");
 
-    let errada = resposta.parentNode.querySelectorAll(".wrong")
+    let wrong = resposta.parentNode.querySelectorAll(".wrong")
 
-    for(let i=0; i < errada.length; i++){
-        errada[i].classList.add("red");
+    for(let i=0; i < wrong.length; i++){
+        wrong[i].classList.add("red");
     }
 
     let respostas = resposta.parentNode.querySelectorAll(".options")
@@ -129,7 +150,66 @@ function scrollar(){
                 break;
             }
         }
+
+        quizzResult()
+
     }, 2000);
+}
+
+function quizzResult(){
+    let ask = document.querySelectorAll(".questionBox")
+    let answerRight = document.querySelectorAll(".questionBox .green")
+
+    if (ask.length === answerRight.length){
+       document.querySelector(".resultBox").classList.remove("invisible");
+       document.querySelector(".resultBox").scrollIntoView();
+
+       let hitPercentage = calculateScore();
+
+       let levels = currentQuizz.levels;
+       let userLevel;
+
+       for (let i=0; levels.length-1; i++){
+           if (hitPercentage < levels[i+1].minValue){
+               userLevel = levels[i];
+           }
+
+           if (hitPercentage === 100){
+               userLevel = levels[levels.length-1];
+           }
+       }
+
+       document.querySelector(".percentage > h1").innerHTML =`
+        ${hitPercentage}% de acerto: ${userLevel.title}.
+       `
+       document.querySelector(".textImage > .resultText").innerHTML=`
+        <img src = "${userLevel.image}">
+       `
+       document.querySelector(".textImage > .resultText > h6").innerHTML=`
+        ${userLevel.text}
+       `
+    }
+}
+
+function calculateScore(){
+    let anyQuestion = document.querySelector(".questionBox").length;
+    let anyQuestionWrong = document.querySelector(".questionBox .green .opacity").length;
+    let anyQuestionRight = (anyQuestion - anyQuestionWrong);
+
+
+    let percentageRight = Math.floor(100*anyQuestionRight/anyQuestion);
+    return percentageRight;
+}
+
+function backHome(){
+    document.querySelector(".quizzPage").classList.add("invisible");
+    document.querySelector(".initialPage").classList.remove("invisible");
+}
+
+function restartQuizz(){
+    document.querySelector(".quizzPage").scrollIntoView();
+
+    startQuizz()
 }
 
 function GoCreateQuizz(){
