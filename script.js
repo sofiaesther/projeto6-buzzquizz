@@ -61,11 +61,6 @@ function GoQuestionCreate(){
     LevelCountCreateItem = document.querySelector('input.LevelCountCreate').value
 
 
-    console.log (TitleCreateItem)
-    console.log(UrlCreateItem)
-    console.log(QuestionCountCreateItem)
-    console.log(LevelCountCreateItem)
-
     if (TitleCreateItem==null){
         alert("Insira um valor válido para o Título");
     } else if (UrlCreateItem==null){
@@ -162,14 +157,11 @@ function GoLevelCreate(){
             let incorrectalternatives =[];
             let IncorrectAnswersCollection = fieldsetSelector[i].getElementsByClassName("IncorrectAnswerCreate");
             let IncorrectURLAnswersCollection = fieldsetSelector[i].getElementsByClassName("IncorrectURLCreate");
-            console.log(IncorrectAnswersCollection, "incorrect collection");
-            console.log(IncorrectURLAnswersCollection, "incorrect collection url");
 
-            console.log(IncorrectAnswersCollection.length)
+
+
             for (let j=0; j<IncorrectAnswersCollection.length;j++){
                 if(IncorrectAnswersCollection[j].value!=""){
-                    console.log(IncorrectAnswersCollection[j].value, "incorrect collection j");
-                    console.log(IncorrectURLAnswersCollection[j].value, "incorrect collection j");
                     incorrectalternatives.push(IncorrectAnswersCollection[j].value) 
                     incorrecturlalternatives.push(IncorrectURLAnswersCollection[j].value)          
                 }
@@ -177,12 +169,7 @@ function GoLevelCreate(){
             }
             IncorrectAnswers.push(incorrectalternatives)
             IncorrectAnswersURL.push(incorrecturlalternatives)
-
-            console.log(incorrectalternatives, "incorrect alt")
-            console.log(incorrecturlalternatives,"inco url alt")
         }
-        console.log(IncorrectAnswers, "incorrect")
-        console.log(IncorrectAnswersURL,"inco url")
     
 
         let HearderLevelCreate = `
@@ -336,7 +323,7 @@ function CreateQuizzAPI(){
         }
         )
     }
-    
+
     for (i=0;i<LevelCountCreateItem;i++){
 
         LevelsAPI.push( {
@@ -355,8 +342,6 @@ function CreateQuizzAPI(){
         questions: QuestionsAPI,
         levels: LevelsAPI
     }
-
-    console.log(QuizzDefinition);
     
     return QuizzDefinition;
 }
@@ -369,7 +354,7 @@ function ValidateInput(){
     let i=0;
     while (i<AllInputs.length && valid===true){
         const inpObj = AllInputs[i];
-        console.log(inpObj)
+
         if (!inpObj.checkValidity()) {
             if (!inpObj.parentElement.classList.contains("QuestionCreating")){
                 let openedquestion = document.querySelectorAll('.QuestionCreating');
