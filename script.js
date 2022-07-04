@@ -253,11 +253,11 @@ function FinishCreate(){
             LevelDescription.push(LevelDescriptionCollection[i].value)
         }
 
-let QuizzFullAPI = CreateQuizzAPI();
-const PostCreateQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', QuizzFullAPI);
+    CreateQuizzAPI();
+     PostCreateQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', QuizzDefinition);
 
-PostCreateQuizz.then(PostCreateQuizzSucess);
-PostCreateQuizz.catch(PostCreateQuizzError);
+    PostCreateQuizz.then(PostCreateQuizzSucess);
+    PostCreateQuizz.catch(PostCreateQuizzError);
 
 }else if(!LevelPercentageCheck.includes("0")){
     alert("Pelo menos um nível deve ter 0% de percentual mínimo de acertos");
@@ -286,8 +286,8 @@ document.querySelector(".PageContent").innerHTML = HearderFinishCreate
 
 function PostCreateQuizzError(){
     alert("Aconteceu um erro. Por favor tente de novo :(")
-
 }
+let QuizzDefinition;
 function OpenQuestionForm(element){
     const openedquestion = document.querySelectorAll('.QuestionCreating');
     if(openedquestion != null){
@@ -301,68 +301,63 @@ function OpenQuestionForm(element){
 }
 
 function CreateQuizzAPI(){
-    let QuestionsAPI=``;
-    let LevelsAPI=``;
+    let QuestionsAPI=[];
+    let LevelsAPI =[];
     for (i=0;i<QuestionCountCreateItem;i++){
-        QuestionsAPI+=`
-        {
-
-        title: "${QuestionTitle[i]}",
-                color: "${QuestionColor[i]}",
-                answers: [
-        {
-            text: "${CorrectAnswers[i]}",
-            image: "${CorrectAnswersURL[i]}",
-            isCorrectAnswer: true
-        }
-        
-        `
+        let APIIncorrect=[];
         let IncorrectAnswersItem=IncorrectAnswers[i];
         let IncorrectAnswersURLItem=IncorrectAnswersURL[i];
+
+        APIIncorrect.push(
+            {
+                text: `${CorrectAnswers[i]}`,
+                image: `${CorrectAnswersURL[i]}`,
+                isCorrectAnswer: true
+            }
+        )
+
         for(j=0;j<IncorrectAnswersItem.length;j++){
-            QuestionsAPI+=`
-            ,
+            APIIncorrect.push(
+            
                     {
-                        text: "${IncorrectAnswersItem[j]}",
-                        image: "${IncorrectAnswersURLItem[j]}",
+                        text: `${IncorrectAnswersItem[j]}`,
+                        image: `${IncorrectAnswersURLItem[j]}`,
                         isCorrectAnswer: false
                     }
-            `
+            )
         }
 
-        if (i+1!=(QuestionCountCreateItem)){
-            QuestionsAPI+= `]},`
-        }
+        QuestionsAPI.push(
+        {
 
+        title: `${QuestionTitle[i]}`,
+                color: `${QuestionColor[i]}`,
+                answers: APIIncorrect
+        }
+        )
     }
-
-
+    
     for (i=0;i<LevelCountCreateItem;i++){
-        if (i!==0){
-            LevelsAPI+= `,`
+
+        LevelsAPI.push( {
+            title: `${LevelTitle[i]}`,
+            image: `${LevelURL[i]}`,
+            text: `${LevelDescription[i]}`,
+            minValue: LevelPercentage[i]
         }
-        LevelsAPI+= `{
-            title: "${LevelTitle[i]}",
-            image: "${LevelURL[i]}",
-            text: "${LevelDescription[i]}",
-            minValue: ${LevelPercentage[i]}
-        }`
-
+        )
 
     }
-    let QuizzDefinition =`
+    QuizzDefinition =
     {
-        title: "${TitleCreateItem}",
-        image: "${UrlCreateItem}",
-        questions: [
-            ${QuestionsAPI}
-                ]}] ,
-           
-        levels: [
-            ${LevelsAPI}
-        ]
+        title: `${TitleCreateItem}`,
+        image: `${UrlCreateItem}`,
+        questions: QuestionsAPI,
+        levels: LevelsAPI
     }
-    `
+
+    console.log(QuizzDefinition);
+    
     return QuizzDefinition;
 }
 
