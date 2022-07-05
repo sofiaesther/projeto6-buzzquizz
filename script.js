@@ -3,6 +3,8 @@ let quizzContent = document.querySelector('.allQuizzes > ul')
 let quizzes = []
 let currentQuizz = {}
 
+
+
 function getQuizzesApi (){
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
 
@@ -439,8 +441,8 @@ function FinishCreate(){
 }
 }
 let IdQuizzCreated;
-const LocalStorageUser = localStorage.getItem("id");
-const ListIDStorage = JSON.parse(LocalStorageUser);
+let LocalStorageUser = localStorage.getItem("id");
+let ListIDStorage = JSON.parse(LocalStorageUser);
 
 function PostCreateQuizzSucess(response){
     IdQuizzCreated = response.data.id
@@ -451,8 +453,9 @@ function PostCreateQuizzSucess(response){
     } else{
     SerialListIDStorage = JSON.stringify([IdQuizzCreated]);
     }
-    localStorage.setItem("ID", SerialListIDStorage);
-
+    localStorage.setItem("id", SerialListIDStorage);
+    LocalStorageUser = localStorage.getItem("id");
+    ListIDStorage = JSON.parse(LocalStorageUser);
 
     let HearderFinishCreate = `
     <div class="ContentCreate">
@@ -463,7 +466,7 @@ function PostCreateQuizzSucess(response){
             </div>
         </div>
 
-        <div class="ButtonContinue" onclick="CreateQuizzAPI()"> 
+        <div class="ButtonContinue" onclick="${RunCreatedQuizz(response)}"> 
             <h3>"Finalizar o quizz" </h3>
         </div>
         <div onclick="GoBackHome()">
@@ -471,11 +474,30 @@ function PostCreateQuizzSucess(response){
         </div>
     </div>`;
 document.querySelector(".PageContent").innerHTML = HearderFinishCreate
+
 }
 
 function PostCreateQuizzError(response){
     alert("Aconteceu um erro. Por favor tente de novo :(", response)
 }
+
+function RunCreatedQuizz(quizz){
+    window.location.reload()
+    let start = document.querySelector('.initialPage');
+    start.classList.add("invisible");
+    let pageTwo = document.querySelector('.quizzPage')
+    pageTwo.classList.remove("invisible");
+
+    const quizzId = quizz.getAttribute("id")
+
+    let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzId}`)
+
+    promise.then(response => {
+        currentQuizz = response.data
+        startQuizz()
+})
+}
+
 let QuizzDefinition;
 function OpenQuestionForm(element){
     const openedquestion = document.querySelectorAll('.QuestionCreating');
@@ -576,5 +598,58 @@ function ValidateInput(){
 }
 
 function GoBackHome(){
+    UserCreatedQuizz()
     window.location.reload()
 }
+
+function UserCreatedQuizz(){
+let DOMCodeUserQuizz;
+    if (ListIDStorage!=null){
+        document.querySelector('.createquizzcontent').innerHTML = `
+        <div class="TitleUserQuizz">
+            <h1 onclick="GoCreateQuizz()">Todos os Quizzes</h1>
+            <ion-icon name="add-circle" onclick="GoCreateQuizz()"></ion-icon>
+        </div>
+        <ul></ul>
+        `;
+        for (i=0;i<ListIDStorage.length;i++){
+        let id = ListIDStorage[i];
+
+        let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
+        promise.then(response => {
+            let quizz = response.data;
+            let image = quizz.image
+            let titulo = quizz.title
+        
+        DOMCodeUserQuizz= `                
+    <li>
+        <div class="imageApi" onclick="playQuizz(this)" id="${id}" style="background-image: url('${image}')">
+            <div class="degrade">
+                <h4>${titulo}</h4>
+            </div>
+
+        </div>
+    </li>`
+
+    document.querySelector('.createquizzcontent > ul').innerHTML +=DOMCodeUserQuizz;
+
+    })
+}
+
+    } else{
+        DOMCodeUserQuizz= `                
+        <div class="ButtonCreateQuizz">
+        <h1>Você não criou nenhum quizz ainda :(</h1>
+        <div onclick="GoCreateQuizz()">
+            <h2>Criar Quizz</h2>
+        </div>
+        </div>`
+
+        document.querySelector('.createquizzcontent').innerHTML = DOMCodeUserQuizz;
+    }
+    localStorage.setItem("id", SerialListIDStorage);
+    LocalStorageUser = localStorage.getItem("id");
+    ListIDStorage = JSON.parse(LocalStorageUser);
+}
+
+UserCreatedQuizz()
